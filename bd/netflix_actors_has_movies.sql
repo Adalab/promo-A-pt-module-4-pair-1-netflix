@@ -16,30 +16,32 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `actors`
+-- Table structure for table `actors_has_movies`
 --
 
-DROP TABLE IF EXISTS `actors`;
+DROP TABLE IF EXISTS `actors_has_movies`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `actors` (
-  `idActor` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(45) NOT NULL,
-  `lastname` varchar(45) NOT NULL,
-  `country` varchar(45) NOT NULL,
-  `birthday` date DEFAULT NULL,
-  PRIMARY KEY (`idActor`)
+CREATE TABLE `actors_has_movies` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `fk_actors` int NOT NULL,
+  `fk_movies` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_actors_has_movies_movies1_idx` (`fk_movies`),
+  KEY `fk_actors_has_movies_actors_idx` (`fk_actors`),
+  CONSTRAINT `fk_actors_has_movies_actors` FOREIGN KEY (`fk_actors`) REFERENCES `actors` (`idActor`),
+  CONSTRAINT `fk_actors_has_movies_movies1` FOREIGN KEY (`fk_movies`) REFERENCES `movies` (`idmovies`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `actors`
+-- Dumping data for table `actors_has_movies`
 --
 
-LOCK TABLES `actors` WRITE;
-/*!40000 ALTER TABLE `actors` DISABLE KEYS */;
-INSERT INTO `actors` VALUES (1,'Tom','Hanks','Estados Unidos','1956-07-09'),(2,'Roberto','Benigni','Italia','1952-10-27'),(3,'Jonh','Travolta','Estados Unidos','1954-02-18');
-/*!40000 ALTER TABLE `actors` ENABLE KEYS */;
+LOCK TABLES `actors_has_movies` WRITE;
+/*!40000 ALTER TABLE `actors_has_movies` DISABLE KEYS */;
+INSERT INTO `actors_has_movies` VALUES (1,3,1),(2,2,2),(3,1,3);
+/*!40000 ALTER TABLE `actors_has_movies` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -51,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-02-29 20:55:15
+-- Dump completed on 2024-02-29 20:55:14

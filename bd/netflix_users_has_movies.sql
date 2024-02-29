@@ -16,30 +16,33 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `actors`
+-- Table structure for table `users_has_movies`
 --
 
-DROP TABLE IF EXISTS `actors`;
+DROP TABLE IF EXISTS `users_has_movies`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `actors` (
-  `idActor` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(45) NOT NULL,
-  `lastname` varchar(45) NOT NULL,
-  `country` varchar(45) NOT NULL,
-  `birthday` date DEFAULT NULL,
-  PRIMARY KEY (`idActor`)
+CREATE TABLE `users_has_movies` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `fk_users` int NOT NULL,
+  `fk_movies` int NOT NULL,
+  `score` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_users_has_movies_movies1_idx` (`fk_movies`),
+  KEY `fk_users_has_movies_users1_idx` (`fk_users`),
+  CONSTRAINT `fk_users_has_movies_movies1` FOREIGN KEY (`fk_movies`) REFERENCES `movies` (`idmovies`),
+  CONSTRAINT `fk_users_has_movies_users1` FOREIGN KEY (`fk_users`) REFERENCES `users` (`idUser`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `actors`
+-- Dumping data for table `users_has_movies`
 --
 
-LOCK TABLES `actors` WRITE;
-/*!40000 ALTER TABLE `actors` DISABLE KEYS */;
-INSERT INTO `actors` VALUES (1,'Tom','Hanks','Estados Unidos','1956-07-09'),(2,'Roberto','Benigni','Italia','1952-10-27'),(3,'Jonh','Travolta','Estados Unidos','1954-02-18');
-/*!40000 ALTER TABLE `actors` ENABLE KEYS */;
+LOCK TABLES `users_has_movies` WRITE;
+/*!40000 ALTER TABLE `users_has_movies` DISABLE KEYS */;
+INSERT INTO `users_has_movies` VALUES (1,1,1,10),(2,1,2,7),(3,2,2,10);
+/*!40000 ALTER TABLE `users_has_movies` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
