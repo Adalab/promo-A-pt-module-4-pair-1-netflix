@@ -37,3 +37,20 @@ server.get('/movies', (req, res) => {
 });
 
 //importar bibliotecas
+const mysql = require('mysql2/promise');
+
+async function getConnection() {
+  const connection = await mysql.createConnection({
+    host: '127.0.0.1',
+    database: 'Adalab-netflix',
+    user: 'root',
+    password: process.env.MYSQL_PASS,
+  });
+  await connection.connect();
+
+  console.log(
+    `Conexión establecida con la base de datos (identificador=${connection.threadId})`
+  );
+
+  return connection;
+}
