@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require('express');
 const cors = require('cors');
 
@@ -41,9 +43,9 @@ const mysql = require('mysql2/promise');
 
 async function getConnection() {
   const connection = await mysql.createConnection({
-    host: '127.0.0.1',
-    database: 'Adalab-netflix',
-    user: 'root',
+    host: process.env.MYSQL_HOST,
+    database: process.env.MYSQL_DB,
+    user: process.env.MYSQL_USER,
     password: process.env.MYSQL_PASS,
   });
   await connection.connect();
