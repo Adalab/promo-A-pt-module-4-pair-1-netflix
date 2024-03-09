@@ -14,33 +14,7 @@ server.listen(serverPort, () => {
   console.log(`Server listening at http://localhost:${serverPort}`);
 });
 
-//endpoints
-
-server.get('/movies', (req, res) => {
-  res.json({
-    success: true,
-    movies: [
-      {
-        id: '1',
-        title: 'Gambita de dama',
-        genre: 'Drama',
-        image:
-          '//beta.adalab.es/curso-intensivo-fullstack-recursos/apis/netflix-v1/images/gambito-de-dama.jpg',
-      },
-      {
-        id: '2',
-        title: 'Friends',
-        genre: 'Comedia',
-        image:
-          '//beta.adalab.es/curso-intensivo-fullstack-recursos/apis/netflix-v1/images/friends.jpg',
-      },
-    ],
-  });
-});
-
-//importar bibliotecas
-const mysql = require('mysql2/promise');
-
+// CONFIGURACIÓN DE MYSQL
 async function getConnection() {
   const connection = await mysql.createConnection({
     host: process.env.MYSQL_HOST,
@@ -56,3 +30,29 @@ async function getConnection() {
 
   return connection;
 }
+
+
+//endpoints
+
+server.get('/api/movies',  async (req, res) => {
+  
+  // Connectar con la base de datos
+  const conn = await getConnection();
+
+  // LANZAR SELECT
+
+  //Cerramos conexión 
+  conn.close();
+
+  res.json({
+   
+  success: true,
+  movies:  results
+
+  });
+});
+
+//importar bibliotecas
+const mysql = require('mysql2/promise');
+
+
