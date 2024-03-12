@@ -2,6 +2,7 @@ require('dotenv').config();
 
 const express = require('express');
 const cors = require('cors');
+const mysql = require("mysql2/promise");
 
 // create and config server
 const server = express();
@@ -40,6 +41,9 @@ server.get('/api/movies',  async (req, res) => {
   const conn = await getConnection();
 
   // LANZAR SELECT
+  const queryMovies = `SELECT * FROM movies`;
+
+  const [results] = await conn.query(queryMovies);
 
   //Cerramos conexión 
   conn.close();
@@ -53,6 +57,6 @@ server.get('/api/movies',  async (req, res) => {
 });
 
 //importar bibliotecas
-const mysql = require('mysql2/promise');
+
 
 
