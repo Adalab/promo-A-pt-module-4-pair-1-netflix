@@ -2,9 +2,11 @@ require('dotenv').config();
 
 const express = require('express');
 const cors = require('cors');
-const mysql = require("mysql2/promise");
+const mysql = require('mysql2/promise');
 
 // create and config server
+//server.use(express.json({ limit: '25mb' }));
+
 const server = express();
 server.use(cors());
 server.use(express.json());
@@ -32,11 +34,9 @@ async function getConnection() {
   return connection;
 }
 
-
 //endpoints
 
-server.get('/api/movies',  async (req, res) => {
-  
+server.get('/api/movies', async (req, res) => {
   // Connectar con la base de datos
   const conn = await getConnection();
 
@@ -45,18 +45,17 @@ server.get('/api/movies',  async (req, res) => {
 
   const [results] = await conn.query(queryMovies);
 
-  //Cerramos conexión 
+  //Cerramos conexión
   conn.close();
 
   res.json({
-   
-  success: true,
-  movies:  results
-
+    success: true,
+    movies: results,
   });
 });
 
+//servidor estáticos
+
+const staticServerPathWeb = './src/public-react'; // En esta carpeta ponemos los ficheros estáticos
+server.use(express.static(staticServerPathWeb));
 //importar bibliotecas
-
-
-
